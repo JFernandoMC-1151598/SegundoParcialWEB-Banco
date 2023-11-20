@@ -1,5 +1,6 @@
 package co.empresa.trabajo.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,6 +24,51 @@ public class UsuarioDao {
 		this.conexion = Conexion.getConexion();
 	}
 
+	public User iniciarSesion(String username, String pass) {
+		User user = null;
+		Connection con = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
+		
+		try {
+
+			con = (Connection) Conexion.getConexion();
+			String sql = "SELECT id, username, pass FROM user U WHERE username = ? AND pass = ?";
+			preparedStatement = con.prepareStatement(sql);
+			preparedStatement.setString(1, username);
+			preparedStatement.setString(2, pass);
+			rs = preparedStatement.executeQuery();
+			
+			while (rs.next()) {
+				user = new User();
+				user.setId(rs.getInt("id"));
+				user.setUsername(rs.getString("username"));
+				user.setPass(rs.getString("pass"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				
+				if (con != null) {
+					con.close();
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		return user;
+	}
+	
 	public void insert(User user) throws SQLException {
 
 		try {

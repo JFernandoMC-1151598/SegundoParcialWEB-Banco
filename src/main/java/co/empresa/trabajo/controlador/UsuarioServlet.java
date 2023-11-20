@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import co.empresa.trabajo.dao.UsuarioDao;
 import co.empresa.trabajo.modelo.User;
-import co.empresa.trabajo.modelo.bill;
 
 /**
  * Servlet implementation class UsuarioServlet
@@ -59,20 +58,20 @@ public class UsuarioServlet extends HttpServlet {
 				break;
 
 			case "/insert":
-				insertarUsuario(request, response);
+				insertarMovimiento(request, response);
 				break;
 
 			case "/delete":
-				eliminarUsuario(request, response);
+				eliminarMovimiento(request, response);
 				break;
 			case "/edit":
 				showEditForm(request, response);
 				break;
 			case "/update":
-				actualizarUsuario(request, response);
+				actualizarMovimiento(request, response);
 				break;
 			default:
-				listUsuarios(request, response);
+				listarMovimentos(request, response);
 				break;
 			}
 		} catch (SQLException e) {
@@ -85,6 +84,23 @@ public class UsuarioServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	
+	protected void service(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String nombre = request.getParameter("nombre");
+		String pass = request.getParameter("pass");
+
+		UsuarioDao modelo = new UsuarioDao();
+		User user = modelo.iniciarSesion(nombre, pass);
+
+		if (user == null) {
+			request.setAttribute("mensaje", "Error nombre de usuario y/o clave");
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+		} else {
+			response.sendRedirect("moves.jsp");
+		}
+	}
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -94,11 +110,11 @@ public class UsuarioServlet extends HttpServlet {
 	private void showNewForm(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("form.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("registrar.jsp");
 		dispatcher.forward(request, response);
 	}
 
-	private void insertarUsuario(HttpServletRequest request, HttpServletResponse response)
+	private void insertarMovimiento(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, SQLException, IOException {
 
 		String username = request.getParameter("username");
@@ -119,14 +135,14 @@ public class UsuarioServlet extends HttpServlet {
 
 		User usuarioActual = usuarioDao.select(id);
 
-		request.setAttribute("usuario", usuarioActual);
+		request.setAttribute("user", usuarioActual);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("form.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("registrar.jsp");
 		dispatcher.forward(request, response);
 
 	}
 
-	private void actualizarUsuario(HttpServletRequest request, HttpServletResponse response)
+	private void actualizarMovimiento(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, SQLException, IOException {
 
 		int id = Integer.parseInt(request.getParameter("id"));
@@ -141,7 +157,7 @@ public class UsuarioServlet extends HttpServlet {
 		response.sendRedirect("list");
 	}
 
-	private void eliminarUsuario(HttpServletRequest request, HttpServletResponse response)
+	private void eliminarMovimiento(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, SQLException, IOException {
 
 		int id = Integer.parseInt(request.getParameter("id"));
@@ -151,13 +167,13 @@ public class UsuarioServlet extends HttpServlet {
 		response.sendRedirect("list");
 	}
 
-	private void listUsuarios(HttpServletRequest request, HttpServletResponse response)
+	private void listarMovimentos(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, SQLException, IOException {
 
 		List<User> listUsuarios = usuarioDao.selectAll();
 		request.setAttribute("listUsuarios", listUsuarios);
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("list.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("moves.jsp");
 		dispatcher.forward(request, response);
 	}
 }

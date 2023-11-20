@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>BANCO BBVA</title>
  <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -48,21 +48,21 @@
                     </label>
                     <input
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="nombre"
+                            id="username"
                             type="text"
                             name="username"
                         value='${user.username}'
                     />
                 </div>
                 <div class="mb-4">
-                    <label class="block text-gray-700 font-bold mb-2" for="password">
+                    <label class="block text-gray-700 font-bold mb-2" for="pass">
                         Password
                     </label>
                     <input
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="password"
+                            id="pass"
                             type="password"
-                            name="password"
+                            name="pass"
                          value='${user.pass}'
                     />
                 </div>

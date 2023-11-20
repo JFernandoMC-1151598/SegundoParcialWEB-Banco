@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import co.empresa.trabajo.modelo.User;
+
 public class Conexion {
 
 	private Connection con = null;
@@ -32,6 +34,7 @@ public class Conexion {
 
 		}
 	}
+	
 
 	public void cerrarConexion() {
 		try {
