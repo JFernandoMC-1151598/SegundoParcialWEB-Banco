@@ -29,7 +29,7 @@ public class UsuarioDao {
 		Connection con = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
-		
+
 		try {
 
 			con = (Connection) Conexion.getConexion();
@@ -38,14 +38,14 @@ public class UsuarioDao {
 			preparedStatement.setString(1, username);
 			preparedStatement.setString(2, pass);
 			rs = preparedStatement.executeQuery();
-			
+
 			while (rs.next()) {
 				user = new User();
 				user.setId(rs.getInt("id"));
 				user.setUsername(rs.getString("username"));
 				user.setPass(rs.getString("pass"));
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -53,11 +53,11 @@ public class UsuarioDao {
 				if (rs != null) {
 					rs.close();
 				}
-				
+
 				if (preparedStatement != null) {
 					preparedStatement.close();
 				}
-				
+
 				if (con != null) {
 					con.close();
 				}
@@ -65,14 +65,14 @@ public class UsuarioDao {
 				e2.printStackTrace();
 			}
 		}
-		
+
 		return user;
 	}
-	
+
 	public void insert(User user) throws SQLException {
 
 		try {
-			PreparedStatement preparedStatement = (PreparedStatement)conexion.setPreparedStatement(INSERT_USER_SQL);
+			PreparedStatement preparedStatement = (PreparedStatement) conexion.setPreparedStatement(INSERT_USER_SQL);
 			preparedStatement.setString(1, user.getUsername());
 			preparedStatement.setString(2, user.getPass());
 			preparedStatement.setString(3, user.getEmail());
@@ -85,7 +85,7 @@ public class UsuarioDao {
 	public void delete(int id) throws SQLException {
 
 		try {
-			PreparedStatement preparedStatement = (PreparedStatement)conexion.setPreparedStatement(DELETE_USER_SQL);
+			PreparedStatement preparedStatement = (PreparedStatement) conexion.setPreparedStatement(DELETE_USER_SQL);
 			preparedStatement.setInt(1, id);
 			conexion.execute();
 		} catch (SQLException e) {
@@ -95,18 +95,17 @@ public class UsuarioDao {
 
 	public void update(User user) throws SQLException {
 
-
 		try {
-			PreparedStatement preparedStatement = (PreparedStatement)conexion.setPreparedStatement(UPDATE_USER_SQL);
+			PreparedStatement preparedStatement = (PreparedStatement) conexion.setPreparedStatement(UPDATE_USER_SQL);
 			preparedStatement.setString(1, user.getUsername());
 			preparedStatement.setString(3, user.getPass());
 			preparedStatement.setString(2, user.getEmail());
 			preparedStatement.setInt(4, user.getId());
-			conexion.execute();		
-			} catch (SQLException e)
-			
+			conexion.execute();
+		} catch (SQLException e)
+
 		{
-				System.out.println(e.getMessage());
+			System.out.println(e.getMessage());
 		}
 
 	}
@@ -117,10 +116,10 @@ public class UsuarioDao {
 
 		try {
 
-			PreparedStatement preparedStatement = (PreparedStatement)conexion.setPreparedStatement(SELECT_ALL_USERS);
+			PreparedStatement preparedStatement = (PreparedStatement) conexion.setPreparedStatement(SELECT_ALL_USERS);
 
 			ResultSet rs = conexion.query();
-			
+
 			while (rs.next()) {
 
 				int id = rs.getInt("id");
@@ -143,7 +142,7 @@ public class UsuarioDao {
 
 		try {
 
-			PreparedStatement preparedStatement = (PreparedStatement)conexion.setPreparedStatement(SELECT_USER_BY_ID);
+			PreparedStatement preparedStatement = (PreparedStatement) conexion.setPreparedStatement(SELECT_USER_BY_ID);
 			preparedStatement.setInt(1, id);
 			ResultSet rs = conexion.query();
 

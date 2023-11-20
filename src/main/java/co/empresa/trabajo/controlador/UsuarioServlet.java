@@ -84,7 +84,7 @@ public class UsuarioServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	
+
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String nombre = request.getParameter("nombre");
@@ -100,7 +100,7 @@ public class UsuarioServlet extends HttpServlet {
 			response.sendRedirect("moves.jsp");
 		}
 	}
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -136,7 +136,7 @@ public class UsuarioServlet extends HttpServlet {
 		User usuarioActual = usuarioDao.select(id);
 
 		request.setAttribute("user", usuarioActual);
-		
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher("registrar.jsp");
 		dispatcher.forward(request, response);
 

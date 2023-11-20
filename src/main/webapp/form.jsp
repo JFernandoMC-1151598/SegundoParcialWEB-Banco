@@ -5,9 +5,9 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>BANCO BBVA</title>
+<title>Agregar Movimiento</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<script>
+	<script>
         tailwind.config = {
           theme: {
             extend: {
@@ -19,53 +19,67 @@
         }
         
       </script>
-<style type="text/tailwindcss">
+	<style type="text/tailwindcss">
         @layer utilities {
           .content-auto {
             content-visibility: auto;
           }
         }
       </style>
-<script
-	src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+	<script
+		src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
 </head>
 <body>
 	<div class="container mx-auto">
 
 		<div
 			class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-			<h1 class="text-3xl font-semibold text-gray-800 mt-5 mb-8">Sign
-				In</h1>
+			<h1 class="text-3xl font-semibold text-gray-800 mt-5 mb-8">Registro de Movimiento
+				</h1>
 			<div class="w-full max-w-md">
 				<form action="UsuarioServlet"
 					class="bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4"
 					method="POST">
 					<div class="mb-4">
 						<!-- hidden input for id -->
-						<input type="hidden" name="id"
-							value="${user ne null ? user.id : ''}" />
+						
+						<label
+							class="block text-gray-700 font-bold mb-2" for="observation">
+							Observation </label> <input
+							class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+							id="observation" type="text" name="observation"
+							value='${bill.observation}' />
+					</div>
 
-						<!-- hidden input for action -->
-						<input type="hidden" name="action"
-							value="${user ne null ? 'update' : 'create'}" /> <label
-							class="block text-gray-700 font-bold mb-2" for="user">
-							User </label> <input
-							class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-							id="username" type="text" name="username"
-							value='${user.username}' />
-					</div>
 					<div class="mb-4">
-						<label class="block text-gray-700 font-bold mb-2" for="pass">
-							Password </label> <input
-							class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-							id="pass" type="password" name="pass" value='${user.pass}' />
+						<label class="block text-gray-700 font-bold mb-2" for="type">
+							Tipo de Movimiento </label> <select id="pais" name="pais"
+							class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+							<option>Elige El Movimiento</option>
+							<option value="${bill.type}">1</option>
+							<option value="${bill.type}">2</option>
+
+						</select>
 					</div>
+
+					<div class="mb-4">
+						<label class="block text-gray-700 font-bold mb-2" for=value>
+							Valor </label> <input
+							class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+							id="value" type="text" name="value" value='${bill.value}' />
+					</div>
+
+
 
 					<div class="flex items-center justify-between">
 						<button onclick={window.location.href
 							= "moves.jsp"}
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-							type="submit">Login</button>
+							type="submit">Regsitrar</button>
+							<button onclick={window.location.href
+							= "moves.jsp"}
+                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+							type="submit">Cancelar</button>
 					</div>
 				</form>
 			</div>

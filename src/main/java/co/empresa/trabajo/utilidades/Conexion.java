@@ -23,8 +23,8 @@ public class Conexion {
 	public Conexion() {
 
 		try {
-			Class.forName(driver).newInstance();	
-			con = (Connection) DriverManager.getConnection(url+dbName, userName, password);
+			Class.forName(driver).newInstance();
+			con = (Connection) DriverManager.getConnection(url + dbName, userName, password);
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -34,7 +34,6 @@ public class Conexion {
 
 		}
 	}
-	
 
 	public void cerrarConexion() {
 		try {

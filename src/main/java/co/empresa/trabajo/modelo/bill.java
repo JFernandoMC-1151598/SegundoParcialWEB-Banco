@@ -19,10 +19,9 @@ public class bill implements Serializable {
 	private Integer user_id;
 
 	private boolean value;
-	
+
 	private Integer type;
-	
+
 	private String observation;
 
-	
 }
